@@ -1,0 +1,3 @@
+[submodule "coffinxp_templates"]
+	path = coffinxp_templates
+	url = git@github.com:bloodstiller/coffinxp_templates.git

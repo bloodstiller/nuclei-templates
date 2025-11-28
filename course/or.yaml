@@ -1,0 +1,42 @@
+id: open-redirect-all-params
+
+info:
+  name: Open Redirect - All Query Parameters
+  author: NahamSec
+  severity: medium
+  tags: open-redirect,fuzzing
+
+http:
+  - payloads:
+      redirect: ./or.txt
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "https://{{redirect}}"
+          - "https://{{hostname}}.{{redirect}}"
+          - "https://www.google.com.{{redirect}}"
+          - "https://www.yotuube.com.{{redirect}}"
+          - "http://{{redirect}}"
+          - "http://{{hostname}}.{{redirect}}"
+          - "http://www.google.com.{{redirect}}"
+          - "http://www.yotuube.com.{{redirect}}"
+          - "{{redirect}}"
+
+
+    stop-at-first-match: true
+
+    matchers-condition: and
+    matchers:
+      - type: regex
+        part: header
+        regex:
+          - '(?i)Location\s*:\s*https?:\/\/[a-z0-9\.\-]*nahamsec\.com.*'
+
+      - type: status
+        status:
+          - 301
+          - 302
+          - 307
+

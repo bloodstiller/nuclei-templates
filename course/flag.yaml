@@ -1,0 +1,24 @@
+id: regex-flag-matcher
+
+info:
+  name: Regex Flag Matcher
+  author: ProjectDiscoveryAI
+  severity: low
+  description: |
+    Matches the `flag{}` pattern with alphanumeric characters (A-Z, 0-9) of any length in the `/stats/` path.
+  tags: regex,flag
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/stats"
+
+    matchers:
+      - type: regex
+        regex:
+          - "flag\\{[a-zA-Z0-9]+\\}"
+        part: body
+      - type: status
+        status:
+          - 200
+    matchers-condition: and

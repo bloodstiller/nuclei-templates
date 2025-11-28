@@ -1,0 +1,41 @@
+id: reflected-xss-fuzz
+
+info:
+  name: Reflected XSS Fuzz
+  author: hackinghub
+  severity: medium
+  tags: xss,fuzzing,dast
+  description: Attempts to detect reflected XSS via fuzzing all query parameters
+
+http:
+  - payloads: # Payload variables used in fuzzing
+      xss:
+        - "<script>alert(1)</script>"  
+        - "\"><img/src=x onerror=alert();//>"
+        - "'\"><svg/onload=alert(1)>"  
+        - "\">';/><u>test123"
+        - "\">';/></script><u>test123"
+        - "\">';/></textarea><u>test123"
+
+
+    fuzzing:
+      - part: query
+        mode: single
+        fuzz:
+          - "{{xss}}"
+
+
+
+    matchers-condition: and
+
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "{{xss}}"
+
+      - type: status 
+        status:
+          - 200
+
+

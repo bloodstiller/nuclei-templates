@@ -1,0 +1,29 @@
+id: stats-endpoint-flag-detection
+
+info:
+  name: Stats Endpoint Flag Detection
+  author: HackingHub
+  severity: low
+  description: |
+    This template checks if the /stats endpoint responds with a 200 status code
+    and contains a flag in the format flag{...} along with the text "Internal Use Only".
+  tags: stats,flag, hackinghub
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/stats"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: regex
+        regex:
+          - "flag\\{[A-Za-z0-9]+\\}"
+
+      - type: word
+        words:
+          - "Internal Use Only"

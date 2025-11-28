@@ -1,0 +1,37 @@
+id: labs-server-status-dashboard
+
+info:
+  name: Server Status Dashboard Finder for HackingHub's Lab
+  author: NahamSec
+  severity: info
+  description: |
+    This template finds server status dashboard 
+    it is only to be used for the HH Nuclei Lab
+  tags: recon, panels
+
+#request
+http: 
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+      - "{{BaseURL}}/stats"
+      - "{{BaseURL}}/stats/"
+      - "{{BaseURL}}/status"
+      - "{{BaseURL}}/admin/dashboard"
+      - "{{BaseURL}}/internal/stats"
+
+    matchers-condition: and
+    matchers:
+     - type: word
+       part: body
+       words: 
+         - "Server Status Dashboard"
+         - "Internal Use Only"
+       condition: and
+
+     - type: status 
+       status:
+         - 200
+
+
+
