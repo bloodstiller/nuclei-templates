@@ -1,3 +1,6 @@
 [submodule "coffinxp_templates"]
 	path = coffinxp_templates
 	url = git@github.com:bloodstiller/coffinxp_templates.git
+[submodule "mobile-nuclei-templates"]
+	path = mobile-nuclei-templates
+	url = https://github.com/optiv/mobile-nuclei-templates

@@ -8,7 +8,17 @@ info:
 
 http:
   - payloads:
-      redirect: ./or.txt
+      redirect: 
+        - "bloodstiller.com"
+        - "http://bloodstiller.com"
+        - "//////bloodstiller.com"
+        - "//bloodstiller%00.com"
+        - "@bloodstiller.com"
+        - "?www.bloodstiller.com"
+        - "/http://bloodstiller.com/"
+        
+
+        
 
     fuzzing:
       - part: query
@@ -17,11 +27,11 @@ http:
           - "https://{{redirect}}"
           - "https://{{hostname}}.{{redirect}}"
           - "https://www.google.com.{{redirect}}"
-          - "https://www.yotuube.com.{{redirect}}"
+          - "https://www.youtube.com.{{redirect}}"
           - "http://{{redirect}}"
           - "http://{{hostname}}.{{redirect}}"
           - "http://www.google.com.{{redirect}}"
-          - "http://www.yotuube.com.{{redirect}}"
+          - "http://www.youtube.com.{{redirect}}"
           - "{{redirect}}"
 
 
@@ -32,7 +42,7 @@ http:
       - type: regex
         part: header
         regex:
-          - '(?i)Location\s*:\s*https?:\/\/[a-z0-9\.\-]*nahamsec\.com.*'
+          - '(?i)Location\s*:\s*https?:\/\/[a-z0-9\.\-]*bloodstiller\.com.*'
 
       - type: status
         status:
